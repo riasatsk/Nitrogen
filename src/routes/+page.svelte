@@ -3,6 +3,7 @@
 	import Request from '../lib/Request.svelte';
 	import Response from '../lib/Response.svelte';
 	import { theme } from '../lib/store';
+	const themeS = localStorage.getItem('theme');
 </script>
 
 <div class="main" data-theme={$theme}>
