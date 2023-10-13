@@ -1,7 +1,7 @@
 <script>
+	import { responseStore, time, status } from './store';
 	import Body from './Body.svelte';
-import { responseStore, time, status } from './store';
-
+	import Header from './Header.svelte';
 	const httpMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 	let selected;
 	let url = '';
@@ -17,6 +17,7 @@ import { responseStore, time, status } from './store';
 				responseStore.set(data);
 			});
 	}
+	let activeTab = Body;
 </script>
 
 <div class="main">
@@ -35,12 +36,18 @@ import { responseStore, time, status } from './store';
 		<button class="btn btn-primary" on:click={handleClick}>Send</button>
 	</div>
 	<div class="tabs">
-		<button class="tab tab-bordered">Body</button>
-		<button class="tab tab-bordered">Headers</button>
+		<button
+			class="tab tab-bordered {activeTab === Body ? 'tab-active' : ''}"
+			on:click={() => (activeTab = Body)}>Body</button
+		>
+		<button
+			class="tab tab-bordered {activeTab === Header ? 'tab-active' : ''} "
+			on:click={() => (activeTab = Header)}>Headers</button
+		>
 	</div>
-  <div class="field">
-	<Body/>
-  </div>
+	<div class="field">
+		<svelte:component this={activeTab} />
+	</div>
 </div>
 
 <style>
@@ -52,10 +59,10 @@ import { responseStore, time, status } from './store';
 		padding-top: 25px;
 		display: flex;
 	}
-  input{
-	margin-left: 5px;
-	margin-right: 5PX;
-  }
+	input {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
 	select {
 		width: fit-content;
 	}
