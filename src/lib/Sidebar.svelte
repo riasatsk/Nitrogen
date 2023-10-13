@@ -29,7 +29,7 @@
 		'winter'
 	];
 	let selected =
-		localStorage.getItem('theme') !== undefined ? localStorage.getItem('theme') : 'light';
+		localStorage.getItem('theme') !== undefined ? localStorage.getItem('theme') : 'forest';
 	$: localStorage.setItem('theme', selected);
 	$: theme.set(selected);
 	function handleClick() {
