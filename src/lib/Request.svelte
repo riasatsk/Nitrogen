@@ -16,7 +16,7 @@
 	$: reqOption = {
 		method: selected,
 		headers: {
-			'Content-Type': 'application/json;'
+			'Content-Type': 'application/json; charset=UTF-8'
 		},
 		body: convertSingleToDoubleQuotesAndRemoveOneCurly($reqBody)
 	};
