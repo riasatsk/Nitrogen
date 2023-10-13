@@ -11,26 +11,38 @@
 	}
 
 	const httpMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
-	let selected;
+	let selected = 'GET';
 	let url = '';
 	$: reqOption = {
 		method: selected,
 		headers: {
-			'Content-Type': 'application/json; charset=UTF-8'
+			'Content-Type': 'application/json;'
 		},
 		body: convertSingleToDoubleQuotesAndRemoveOneCurly($reqBody)
 	};
 	function handleClick() {
 		const t = Date.now();
-		fetch(url, reqOption)
-			.then((res) => {
-				status.set(res.status);
-				return res.json();
-			})
-			.then((data) => {
-				time.set(Date.now() - t);
-				responseStore.set(data);
-			});
+		if (reqOption.method === 'GET') {
+			fetch(url)
+				.then((res) => {
+					status.set(res.status);
+					return res.json();
+				})
+				.then((data) => {
+					time.set(Date.now() - t);
+					responseStore.set(data);
+				});
+		} else {
+			fetch(url, reqOption)
+				.then((res) => {
+					status.set(res.status);
+					return res.json();
+				})
+				.then((data) => {
+					time.set(Date.now() - t);
+					responseStore.set(data);
+				});
+		}
 	}
 	let activeTab = Body;
 </script>
