@@ -10,11 +10,11 @@
 		headers: {
 			'Content-Type': 'application/json;'
 		},
-		body: $reqBody
+		body: ""
 	};
 	function handleClick() {
 		const t = Date.now();
-		fetch(url, reqOption)
+		fetch(url)
 			.then((res) => {
 				status.set(res.status);
 				return res.json();
@@ -53,7 +53,7 @@
 		>
 	</div>
 	<div class="field">
-		<svelte:component this={activeTab} />
+		<!-- <svelte:component this={activeTab} /> -->
 	</div>
 </div>
 
