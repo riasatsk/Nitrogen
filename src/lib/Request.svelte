@@ -2,6 +2,14 @@
 	import { responseStore, time, status, reqBody } from './store';
 	import Body from './Body.svelte';
 	import Header from './Header.svelte';
+
+	function convertSingleToDoubleQuotesAndRemoveOneCurly(inputText) {
+		// Use regular expressions to replace single-quoted keys with double-quoted keys.
+		const resultText = inputText.replace(/(\w+):/g, '"$1":');
+		// Remove one set of curly braces.
+		return `{${resultText}}`.replace(/^{/, '').replace(/}$/, '');
+	}
+
 	const httpMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 	let selected;
 	let url = '';
@@ -10,11 +18,11 @@
 		headers: {
 			'Content-Type': 'application/json;'
 		},
-		body: ""
+		body: convertSingleToDoubleQuotesAndRemoveOneCurly($reqBody)
 	};
 	function handleClick() {
 		const t = Date.now();
-		fetch(url)
+		fetch(url, reqOption)
 			.then((res) => {
 				status.set(res.status);
 				return res.json();
@@ -53,7 +61,7 @@
 		>
 	</div>
 	<div class="field">
-		<!-- <svelte:component this={activeTab} /> -->
+		<svelte:component this={activeTab} />
 	</div>
 </div>
 
