@@ -1,13 +1,20 @@
 <script>
-	import { responseStore, time, status } from './store';
+	import { responseStore, time, status, reqBody } from './store';
 	import Body from './Body.svelte';
 	import Header from './Header.svelte';
 	const httpMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 	let selected;
 	let url = '';
+	$: reqOption = {
+		method: selected,
+		headers: {
+			'Content-Type': 'application/json;'
+		},
+		body: $reqBody
+	};
 	function handleClick() {
 		const t = Date.now();
-		fetch(url)
+		fetch(url, reqOption)
 			.then((res) => {
 				status.set(res.status);
 				return res.json();

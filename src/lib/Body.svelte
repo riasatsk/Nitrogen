@@ -1,7 +1,8 @@
 <script>
     import { reqBody } from "./store";
-	let reqBodyN = '';
-    $:reqBody.set(reqBodyN)
+	let reqBodyN = "";
+    $:reqBodyP = JSON.stringify(reqBodyN)
+    $:reqBody.set(reqBodyP)
 </script>
 
 <textarea placeholder="JSON/Text" bind:value={reqBodyN} cols="60" rows="10" />
